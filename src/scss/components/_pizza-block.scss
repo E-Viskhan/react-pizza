@@ -1,15 +1,10 @@
 @import '../variables';
 
 .pizza-block {
-  width: 280px;
   text-align: center;
-  margin-bottom: 65px;
-
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
-  }
 
   &__image {
+    max-width: 100%;
     width: 260px;
   }
 
@@ -18,6 +13,10 @@
     font-weight: 900;
     letter-spacing: 1%;
     margin-bottom: 20px;
+
+    @media (max-width: 1500px) {
+      font-size: 19px;
+    }
   }
 
   &__selector {
@@ -44,7 +43,7 @@
         @include noselect();
         &.active {
           background: #ffffff;
-          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           border-radius: 5px;
           cursor: auto;
         }

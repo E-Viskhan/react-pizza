@@ -13,19 +13,17 @@ const Categories = () => {
   ];
 
   return (
-    <div className="categories">
-      <ul>
-        {categories.map((category, i) => (
-          <li
-            className={i === activeIndex ? 'active' : ''}
-            onClick={() => setActiveIndex(i)}
-            key={i}
-          >
-            {category}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="categories">
+      {categories.map((category, i) => (
+        <li
+          className={i === activeIndex ? 'active' : ''}
+          onClick={() => setActiveIndex(i)}
+          key={i}
+        >
+          {category}
+        </li>
+      ))}
+    </ul>
   );
 };
 
