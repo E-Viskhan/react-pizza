@@ -16,10 +16,12 @@ const Home = (props) => {
         setPizzas(data);
         setIsLoading(false);
       });
+
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -30,7 +32,7 @@ const Home = (props) => {
           ? [...Array(8)].map((_, i) => <Skeleton key={i} />)
           : pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
       </div>
-    </>
+    </div>
   );
 };
 
