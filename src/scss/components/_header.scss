@@ -19,6 +19,15 @@
     }
   }
 
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    margin-right: 70px;
+  }
+
   &__logo {
     display: flex;
 
