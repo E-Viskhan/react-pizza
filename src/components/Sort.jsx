@@ -1,21 +1,29 @@
 import { useState } from 'react';
+import { isEqual } from 'lodash';
 
-const Sort = () => {
-  const [selected, setSelected] = useState(0);
+const Sort = ({ value, onChangeSort }) => {
   const [open, setOpen] = useState(false);
 
-  const sortTypes = ['популярности', 'цене', 'алфавиту'];
-  const sortName = sortTypes[selected];
+  const sortTypes = [
+    { name: 'популярные', sortProperty: 'rating', order: 'desc' },
+    { name: 'сначала дорогие', sortProperty: 'price', order: 'desc' },
+    { name: 'сначала доступные', sortProperty: 'price', order: 'asc' },
+    { name: 'от А до Я', sortProperty: 'title', order: 'asc' },
+    { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
+  ];
 
-  const onClickListItem = (i) => {
-    setSelected(i);
-    setOpen(false);
+  const onClickListItem = (sortType) => {
+    if (!isEqual(value, sortType)) {
+      onChangeSort(sortType);
+      setOpen(false);
+    }
   };
 
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
+          className={open ? 'rotate180' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -27,19 +35,19 @@ const Sort = () => {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <b>Сортировка:</b>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortTypes.map((name, i) => (
+            {sortTypes.map((sortType, i) => (
               <li
                 key={i}
-                className={selected === i ? 'active' : ''}
-                onClick={() => onClickListItem(i)}
+                className={value.name === sortType.name ? 'active' : ''}
+                onClick={() => onClickListItem(sortType)}
               >
-                {name}
+                {sortType.name}
               </li>
             ))}
           </ul>
