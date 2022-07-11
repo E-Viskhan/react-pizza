@@ -6,15 +6,15 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import { pizzasApi } from '../api';
 
-const Home = (props) => {
-  const [pizzas, setPizzas] = useState([]);
+const Home = ({ searchValue }) => {
+  const [items, setItems] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [sortType, setSortType] = useState({
     name: 'популярные',
     sortProperty: 'rating',
     order: 'desc',
   });
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,14 +27,22 @@ const Home = (props) => {
       const sortBy = sortType.sortProperty;
       const order = sortType.order;
 
-      const data = await pizzasApi.getPizzas(categoryId, sortBy, order);
+      const data = await pizzasApi.getPizzas(
+        categoryId,
+        sortBy,
+        order,
+        searchValue
+      );
 
-      setPizzas(data);
+      setItems(data);
       setIsLoading(false);
     };
 
     getPizzas();
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
+
+  const skeletons = [...Array(8)].map((_, i) => <Skeleton key={i} />);
+  const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <div className="container">
@@ -49,11 +57,7 @@ const Home = (props) => {
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...Array(8)].map((_, i) => <Skeleton key={i} />)
-          : pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
-      </div>
+      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
     </div>
   );
 };

@@ -3,13 +3,12 @@
 }
 
 .input {
-  width: 300px;
+  width: 350px;
   padding: 12px 20px 12px 42px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-size: 16px;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
+  transition: all 2s ease-in-out;
 
   &:focus, &:hover {
     border-color: rgba(0, 0, 0, 0.2);
@@ -20,8 +19,23 @@
   width: 20px;
   height: 20px;
   position: absolute;
-  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.3;
 }
+
+.searchIcon {
+  left: 14px;
+}
+
+.clearIcon {
+  right: 14px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+
+
