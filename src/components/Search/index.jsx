@@ -1,8 +1,12 @@
 import styles from './Search.module.scss';
 import searchIcon from '../../assets/img/search.svg';
 import clearIcon from '../../assets/img/close.svg';
+import { useContext } from 'react';
+import { AppContext } from '../../App';
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = (props) => {
+  const { searchValue, setSearchValue } = useContext(AppContext);
+
   return (
     <div className={styles.wrapper}>
       <img

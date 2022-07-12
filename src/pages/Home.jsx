@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -6,8 +6,9 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import { pizzasApi } from '../api';
 import Pagination from '../components/Pagination';
+import { AppContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = (props) => {
   const [items, setItems] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,7 @@ const Home = ({ searchValue }) => {
     sortProperty: 'rating',
     order: 'desc',
   });
+  const { searchValue } = useContext(AppContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
