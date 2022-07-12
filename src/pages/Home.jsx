@@ -5,11 +5,14 @@ import Sort from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import { pizzasApi } from '../api';
+import Pagination from '../components/Pagination';
 
 const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countPizzas, setCountPizzas] = useState(0);
   const [sortType, setSortType] = useState({
     name: 'популярные',
     sortProperty: 'rating',
@@ -26,22 +29,26 @@ const Home = ({ searchValue }) => {
 
       const sortBy = sortType.sortProperty;
       const order = sortType.order;
+      const limit = 4;
 
       const data = await pizzasApi.getPizzas(
         categoryId,
         sortBy,
         order,
-        searchValue
+        searchValue,
+        limit,
+        currentPage
       );
 
-      setItems(data);
+      setItems(data.pizzas);
+      setCountPizzas(data.count);
       setIsLoading(false);
     };
 
     getPizzas();
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
-  const skeletons = [...Array(8)].map((_, i) => <Skeleton key={i} />);
+  const skeletons = [...Array(4)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
 
   return (
@@ -58,6 +65,11 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        count={countPizzas}
+      />
     </div>
   );
 };

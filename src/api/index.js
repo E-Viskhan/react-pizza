@@ -10,8 +10,8 @@ const responseInterceptor = (response) => response.data;
 api.interceptors.response.use(responseInterceptor);
 
 const pizzasApi = {
-  getPizzas: (category, sortBy, order, title) => {
-    const params = pickBy({ category, sortBy, order, title });
+  getPizzas: (category, sortBy, order, title, limit, page) => {
+    const params = pickBy({ category, sortBy, order, title, limit, page });
 
     return api.get('pizzas', { params });
   },

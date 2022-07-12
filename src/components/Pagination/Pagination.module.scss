@@ -1,0 +1,61 @@
+$primary-color: #fe5f1e;
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+:global {
+  .rc-pagination {
+    &-item {
+      &:hover,
+      &:focus {
+        border-color: $primary-color;
+
+        a {
+          color: $primary-color;
+        }
+      }
+
+      &-active {
+        border-color: $primary-color;
+
+        a {
+          color: $primary-color;
+        }
+
+        &:focus,
+        &:hover {
+          border-color: lighten($primary-color, 10%);
+        }
+
+        &:focus a,
+        &:hover a {
+          border-color: lighten($primary-color, 10%);
+        }
+      }
+    }
+
+    &-prev,
+    &-next {
+      &:focus .rc-pagination-item-link,
+      &:hover .rc-pagination-item-link {
+        color: $primary-color;
+        border-color: $primary-color;
+      }
+    }
+
+    &-disabled {
+      &,
+      &:hover,
+      &:focus {
+        .rc-pagination-item-link {
+          color: fade-out(#000, .25);
+          border-color: #d9d9d9;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
