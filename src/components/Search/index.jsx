@@ -1,11 +1,12 @@
 import styles from './Search.module.scss';
 import searchIcon from '../../assets/img/search.svg';
 import clearIcon from '../../assets/img/close.svg';
-import { useContext } from 'react';
-import { AppContext } from '../../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSearchValue } from '../../redux/slices/filterSlice';
 
 const Search = (props) => {
-  const { searchValue, setSearchValue } = useContext(AppContext);
+  const searchValue = useSelector((state) => state.filter.searchValue);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.wrapper}>
@@ -18,13 +19,13 @@ const Search = (props) => {
         className={styles.input}
         placeholder="Поиск пиццы..."
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => dispatch(changeSearchValue(e.target.value))}
       />
       {searchValue && (
         <img
           src={clearIcon}
           className={`${styles.icon} ${styles.clearIcon}`}
-          onClick={() => setSearchValue('')}
+          onClick={() => dispatch(changeSearchValue(''))}
           alt="Кнопка очистки поля поиска"
         />
       )}

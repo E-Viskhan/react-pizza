@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { isEqual } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSortType } from '../redux/slices/filterSlice';
 
-const Sort = ({ value, onChangeSort }) => {
+const Sort = (props) => {
   const [open, setOpen] = useState(false);
+  const sortType = useSelector((state) => state.filter.sortType);
+  const dispatch = useDispatch();
 
   const sortTypes = [
     { name: 'популярные', sortProperty: 'rating', order: 'desc' },
@@ -12,9 +16,9 @@ const Sort = ({ value, onChangeSort }) => {
     { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
   ];
 
-  const onClickListItem = (sortType) => {
+  const onClickListItem = (value) => {
     if (!isEqual(value, sortType)) {
-      onChangeSort(sortType);
+      dispatch(changeSortType(value));
       setOpen(false);
     }
   };
@@ -36,18 +40,18 @@ const Sort = ({ value, onChangeSort }) => {
           />
         </svg>
         <b>Сортировка:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sortType.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortTypes.map((sortType, i) => (
+            {sortTypes.map((value, i) => (
               <li
                 key={i}
-                className={value.name === sortType.name ? 'active' : ''}
-                onClick={() => onClickListItem(sortType)}
+                className={sortType.name === value.name ? 'active' : ''}
+                onClick={() => onClickListItem(value)}
               >
-                {sortType.name}
+                {value.name}
               </li>
             ))}
           </ul>
