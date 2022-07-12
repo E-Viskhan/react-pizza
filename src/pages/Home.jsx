@@ -50,6 +50,10 @@ const Home = (props) => {
     getPizzas();
   }, [categoryId, sortType, searchValue, currentPage]);
 
+  useEffect(() => {
+    if (currentPage !== 1) setCurrentPage(1);
+  }, [searchValue]);
+
   const skeletons = [...Array(4)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items.map((item) => <PizzaBlock key={item.id} {...item} />);
 
