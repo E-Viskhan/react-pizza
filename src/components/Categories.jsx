@@ -1,9 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCategory } from '../redux/slices/filterSlice';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Categories = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const dispatch = useDispatch();
+
+  const onChangeCategory = (i) => {
+    dispatch(setCategoryId(i));
+  };
 
   const categories = [
     'Все',
@@ -19,7 +23,7 @@ const Categories = () => {
       {categories.map((category, i) => (
         <li
           className={i === categoryId ? 'active' : ''}
-          onClick={() => dispatch(changeCategory(i))}
+          onClick={() => onChangeCategory(i)}
           key={i}
         >
           {category}
