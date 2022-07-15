@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { pizzasApi } from '../../api';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
-import { setCountItems } from '../../redux/slices/paginationSlice';
+import { setCountItems } from '../../redux/slices/filterSlice';
 
 const PizzaItems = () => {
   const [items, setItems] = useState([]);
@@ -12,7 +12,7 @@ const PizzaItems = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const searchValue = useSelector((state) => state.filter.searchValue);
   const sort = useSelector((state) => state.filter.sort);
-  const currentPage = useSelector((state) => state.pagination.currentPage);
+  const currentPage = useSelector((state) => state.filter.currentPage);
 
   const dispatch = useDispatch();
 

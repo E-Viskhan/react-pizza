@@ -2,17 +2,19 @@ import ReactPagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import styles from './Pagination.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage } from '../../redux/slices/paginationSlice';
+import { setCurrentPage } from '../../redux/slices/filterSlice';
 
 const Pagination = () => {
-  const currentPage = useSelector((state) => state.pagination.currentPage);
-  const count = useSelector((state) => state.pagination.countItems);
+  const currentPage = useSelector((state) => state.filter.currentPage);
+  const count = useSelector((state) => state.filter.countItems);
   const dispatch = useDispatch();
+
+  const onChangePage = (page) => dispatch(setCurrentPage(page));
 
   return (
     <ReactPagination
       className={styles.pagination}
-      onChange={(page) => dispatch(changePage(page))}
+      onChange={onChangePage}
       current={currentPage}
       total={count}
       defaultPageSize={4}
