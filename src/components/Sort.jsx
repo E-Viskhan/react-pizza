@@ -3,18 +3,18 @@ import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
+export const sortTypes = [
+  { name: 'популярные', sortProperty: 'rating', order: 'desc' },
+  { name: 'сначала дорогие', sortProperty: 'price', order: 'desc' },
+  { name: 'сначала доступные', sortProperty: 'price', order: 'asc' },
+  { name: 'от А до Я', sortProperty: 'title', order: 'asc' },
+  { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
+];
+
 const Sort = (props) => {
   const [open, setOpen] = useState(false);
   const sort = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
-
-  const sortTypes = [
-    { name: 'популярные', sortProperty: 'rating', order: 'desc' },
-    { name: 'сначала дорогие', sortProperty: 'price', order: 'desc' },
-    { name: 'сначала доступные', sortProperty: 'price', order: 'asc' },
-    { name: 'от А до Я', sortProperty: 'title', order: 'asc' },
-    { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
-  ];
 
   const onClickListItem = (newSort) => {
     if (!isEqual(newSort, sort)) {
