@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
@@ -12,9 +12,12 @@ export const sortTypes = [
 ];
 
 const Sort = (props) => {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const sort = useSelector((state) => state.filter.sort);
-  const dispatch = useDispatch();
+
+  const sortRef = useRef(null);
 
   const onClickListItem = (newSort) => {
     if (!isEqual(newSort, sort)) {
@@ -23,8 +26,20 @@ const Sort = (props) => {
     }
   };
 
+  useEffect(() => {
+    const onClick = (e) => {
+      if (!e.path.includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('click', onClick);
+
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           className={open ? 'rotate180' : ''}
