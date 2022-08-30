@@ -3,22 +3,23 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
-import { setFilters } from '../../redux/slices/filterSlice';
+import {
+  selectFilter,
+  selectSort,
+  setFilters,
+} from '../../redux/slices/filterSlice';
 import qs from 'qs';
 import { pickBy } from 'lodash';
 import { sortTypes } from '../Sort';
-import { fetchPizzas } from '../../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
 
 const PizzaItems = () => {
   const isSearchReady = useRef(false);
   const isMounted = useRef(false);
 
-  const items = useSelector((state) => state.pizza.items);
-  const status = useSelector((state) => state.pizza.status);
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const searchValue = useSelector((state) => state.filter.searchValue);
-  const sort = useSelector((state) => state.filter.sort);
-  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { items, status } = useSelector(selectPizzaData);
+  const { categoryId, searchValue, currentPage } = useSelector(selectFilter);
+  const sort = useSelector(selectSort);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
