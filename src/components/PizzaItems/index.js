@@ -1,21 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { pizzasApi } from '../../api';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
-import { setCountItems, setFilters } from '../../redux/slices/filterSlice';
+import { setFilters } from '../../redux/slices/filterSlice';
 import qs from 'qs';
 import { pickBy } from 'lodash';
 import { sortTypes } from '../Sort';
+import { fetchPizzas } from '../../redux/slices/pizzaSlice';
 
 const PizzaItems = () => {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const isSearchReady = useRef(false);
   const isMounted = useRef(false);
 
+  const items = useSelector((state) => state.pizza.items);
+  const status = useSelector((state) => state.pizza.status);
   const categoryId = useSelector((state) => state.filter.categoryId);
   const searchValue = useSelector((state) => state.filter.searchValue);
   const sort = useSelector((state) => state.filter.sort);
@@ -25,24 +24,20 @@ const PizzaItems = () => {
   const navigate = useNavigate();
 
   const getPizzas = async () => {
-    setIsLoading(true);
-
     const sortBy = sort.sortProperty;
     const order = sort.order;
     const limit = 4;
 
-    const data = await pizzasApi.getPizzas(
-      categoryId,
-      sortBy,
-      order,
-      searchValue,
-      limit,
-      currentPage
+    dispatch(
+      fetchPizzas({
+        categoryId,
+        sortBy,
+        order,
+        searchValue,
+        limit,
+        currentPage,
+      })
     );
-
-    setItems(data.pizzas);
-    dispatch(setCountItems(data.count));
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -101,7 +96,19 @@ const PizzaItems = () => {
     [items]
   );
 
-  return <>{isLoading ? skeletons : pizzas}</>;
+  if (status === 'error') {
+    return (
+      <div className="content__error-info">
+        <h2>Произошла ошибка 😕</h2>
+        <p>
+          Произошла ошибка и мы уже занимаемся данной проблемой. Извините за
+          неудобства.
+        </p>
+      </div>
+    );
+  }
+
+  return <>{status === 'loading' ? skeletons : pizzas}</>;
 };
 
 export default PizzaItems;

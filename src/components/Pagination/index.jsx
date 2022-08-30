@@ -6,7 +6,7 @@ import { setCurrentPage } from '../../redux/slices/filterSlice';
 
 const Pagination = () => {
   const currentPage = useSelector((state) => state.filter.currentPage);
-  const count = useSelector((state) => state.filter.countItems);
+  const count = useSelector((state) => state.pizza.countItems);
   const dispatch = useDispatch();
 
   const onChangePage = (page) => dispatch(setCurrentPage(page));
