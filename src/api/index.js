@@ -15,6 +15,9 @@ const pizzasApi = {
 
     return api.get('pizzas', { params });
   },
+  getPizzaById: (id) => {
+    return api.get('pizzas/' + id);
+  },
 };
 
 export { pizzasApi };
