@@ -1,9 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
-export const sortTypes = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+  order: string;
+};
+
+export const sortTypes: SortItem[] = [
   { name: 'популярные', sortProperty: 'rating', order: 'desc' },
   { name: 'сначала дорогие', sortProperty: 'price', order: 'desc' },
   { name: 'сначала доступные', sortProperty: 'price', order: 'asc' },
@@ -11,15 +17,15 @@ export const sortTypes = [
   { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
 ];
 
-const Sort = (props) => {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const sort = useSelector(selectSort);
 
-  const sortRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickListItem = (newSort) => {
+  const onClickListItem = (newSort: SortItem) => {
     if (!isEqual(newSort, sort)) {
       dispatch(setSort(newSort));
       setOpen(false);
@@ -27,7 +33,7 @@ const Sort = (props) => {
   };
 
   useEffect(() => {
-    const onClick = (e) => {
+    const onClick = (e: any) => {
       if (!e.path.includes(sortRef.current)) {
         setOpen(false);
       }

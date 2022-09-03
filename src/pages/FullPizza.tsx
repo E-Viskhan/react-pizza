@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { pizzasApi } from '../api';
 
-function FullPizza(props) {
-  const dispatch = useDispatch();
-  const [pizza, setPizza] = useState();
+const FullPizza: React.FC = () => {
+  const [pizza, setPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const getPizza = async () => {
       try {
-        const data = await pizzasApi.getPizzaById(id);
+        const data: any = await pizzasApi.getPizzaById(id);
         setPizza(data);
       } catch (e) {
         alert('Произошла ошибка при получении пиццы.');
@@ -24,7 +26,7 @@ function FullPizza(props) {
   }, []);
 
   if (!pizza) {
-    return 'Загрузка...';
+    return <span>Загрузка...</span>;
   }
 
   return (
@@ -41,6 +43,6 @@ function FullPizza(props) {
       <h4>{pizza.price} ₽</h4>
     </div>
   );
-}
+};
 
 export default FullPizza;

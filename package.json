@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.184",
     "sass": "^1.53.0"
   }
 }

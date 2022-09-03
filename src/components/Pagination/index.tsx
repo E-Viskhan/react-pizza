@@ -3,13 +3,14 @@ import 'rc-pagination/assets/index.css';
 import styles from './Pagination.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../../redux/slices/filterSlice';
+import React from 'react';
 
-const Pagination = () => {
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const count = useSelector((state) => state.pizza.countItems);
+const Pagination: React.FC = () => {
+  const currentPage = useSelector((state: any) => state.filter.currentPage);
+  const count = useSelector((state: any) => state.pizza.countItems);
   const dispatch = useDispatch();
 
-  const onChangePage = (page) => dispatch(setCurrentPage(page));
+  const onChangePage = (page: number) => dispatch(setCurrentPage(page));
 
   return (
     <ReactPagination
@@ -18,7 +19,6 @@ const Pagination = () => {
       current={currentPage}
       total={count}
       defaultPageSize={4}
-      locale="ru_RU"
     />
   );
 };

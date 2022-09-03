@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
 import PizzaItems from '../components/PizzaItems';
 
-const Home = (props) => {
+const Home: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

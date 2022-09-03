@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
@@ -13,7 +13,7 @@ import { pickBy } from 'lodash';
 import { sortTypes } from '../Sort';
 import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
 
-const PizzaItems = () => {
+const PizzaItems: React.FC = () => {
   const isSearchReady = useRef(false);
   const isMounted = useRef(false);
 
@@ -30,6 +30,7 @@ const PizzaItems = () => {
     const limit = 4;
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         categoryId,
         sortBy,
@@ -93,7 +94,7 @@ const PizzaItems = () => {
     []
   );
   const pizzas = useMemo(
-    () => items.map((item) => <PizzaBlock key={item.id} {...item} />),
+    () => items.map((item: any) => <PizzaBlock key={item.id} {...item} />),
     [items]
   );
 

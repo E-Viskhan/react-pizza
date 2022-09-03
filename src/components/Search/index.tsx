@@ -3,27 +3,27 @@ import searchIcon from '../../assets/img/search.svg';
 import clearIcon from '../../assets/img/close.svg';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 
-const Search = (props) => {
+const Search: React.FC = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
-  const inputEl = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputEl.current.focus();
+    inputEl.current?.focus();
   };
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     updateSearchValue(e.target.value);
     setValue(e.target.value);
   };
 
   const updateSearchValue = useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 500),
     []
