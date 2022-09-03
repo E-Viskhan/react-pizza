@@ -33,15 +33,15 @@ const Sort: React.FC = () => {
   };
 
   useEffect(() => {
-    const onClick = (e: any) => {
-      if (!e.path.includes(sortRef.current)) {
+    const onClick = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
 
-    document.addEventListener('click', onClick);
+    document.body.addEventListener('click', onClick);
 
-    return () => document.removeEventListener('click', onClick);
+    return () => document.body.removeEventListener('click', onClick);
   }, []);
 
   return (

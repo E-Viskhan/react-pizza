@@ -43,8 +43,6 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       size: sizes[activeSize],
     };
 
-    console.log(item);
-
     dispatch(addItem(item));
   };
 
