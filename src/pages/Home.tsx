@@ -6,11 +6,14 @@ import Pagination from '../components/Pagination';
 import PizzaItems from '../components/PizzaItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
-  const categoryId = useSelector((state: any) => state.filter.categoryId);
-  const currentPage = useSelector((state: any) => state.filter.currentPage);
-  const countItems = useSelector((state: any) => state.pizza.countItems);
+  const categoryId = useSelector((state: RootState) => state.filter.categoryId);
+  const currentPage = useSelector(
+    (state: RootState) => state.filter.currentPage
+  );
+  const countItems = useSelector((state: RootState) => state.pizza.countItems);
 
   const dispatch = useDispatch();
 

@@ -1,20 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSort, setSort } from '../redux/slices/filterSlice';
-
-type SortItem = {
-  name: string;
-  sortProperty: string;
-  order: string;
-};
+import {
+  selectSort,
+  setSort,
+  sortBy,
+  SortItem,
+  sortName,
+  sortOrder,
+} from '../redux/slices/filterSlice';
 
 export const sortTypes: SortItem[] = [
-  { name: 'популярные', sortProperty: 'rating', order: 'desc' },
-  { name: 'сначала дорогие', sortProperty: 'price', order: 'desc' },
-  { name: 'сначала доступные', sortProperty: 'price', order: 'asc' },
-  { name: 'от А до Я', sortProperty: 'title', order: 'asc' },
-  { name: 'от Я до А', sortProperty: 'title', order: 'desc' },
+  { name: sortName.RATING, sortBy: sortBy.RATING, order: sortOrder.DESC },
+  {
+    name: sortName.EXPENSIVE_FIRST,
+    sortBy: sortBy.PRICE,
+    order: sortOrder.DESC,
+  },
+  { name: sortName.CHEAP_FIRST, sortBy: sortBy.PRICE, order: sortOrder.ASC },
+  { name: sortName.ALPHABET, sortBy: sortBy.TITLE, order: sortOrder.DESC },
+  {
+    name: sortName.REVERSE_ALPHABET,
+    sortBy: sortBy.TITLE,
+    order: sortOrder.ASC,
+  },
 ];
 
 const Sort: React.FC = () => {

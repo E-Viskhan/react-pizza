@@ -14,8 +14,10 @@ const FullPizza: React.FC = () => {
   useEffect(() => {
     const getPizza = async () => {
       try {
-        const data: any = await pizzasApi.getPizzaById(id);
-        setPizza(data);
+        if (id) {
+          const { data } = await pizzasApi.getPizzaById(id);
+          setPizza(data);
+        }
       } catch (e) {
         alert('Произошла ошибка при получении пиццы.');
         navigate('/');

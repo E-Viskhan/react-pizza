@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
 import {
+  initialSort,
   selectFilter,
   selectSort,
   setFilters,
@@ -12,6 +13,7 @@ import qs from 'qs';
 import { pickBy } from 'lodash';
 import { sortTypes } from '../Sort';
 import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../../redux/store';
 
 const PizzaItems: React.FC = () => {
   const isSearchReady = useRef(false);
@@ -21,16 +23,15 @@ const PizzaItems: React.FC = () => {
   const { categoryId, searchValue, currentPage } = useSelector(selectFilter);
   const sort = useSelector(selectSort);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const getPizzas = async () => {
-    const sortBy = sort.sortProperty;
+    const sortBy = sort.sortBy;
     const order = sort.order;
     const limit = 4;
 
     dispatch(
-      // @ts-ignore
       fetchPizzas({
         categoryId,
         sortBy,
@@ -46,7 +47,7 @@ const PizzaItems: React.FC = () => {
     const search = window.location.search;
 
     if (!search || (search && isSearchReady.current)) {
-      getPizzas();
+      void getPizzas();
     }
   }, [categoryId, sort, currentPage, searchValue]);
 
@@ -56,15 +57,13 @@ const PizzaItems: React.FC = () => {
     if (search) {
       const params = qs.parse(search, { ignoreQueryPrefix: true });
       const sort = sortTypes.find(
-        (sort) =>
-          sort.sortProperty === params.sortProperty &&
-          sort.order === params.order
+        (sort) => sort.sortBy === params?.sortBy && sort.order === params?.order
       );
 
       const filters = {
-        currentPage: params.currentPage,
-        categoryId: params.categoryId,
-        sort,
+        currentPage: Number(params.currentPage) || 1,
+        categoryId: Number(params.categoryId) || 0,
+        sort: sort || initialSort,
       };
 
       dispatch(setFilters(filters));
@@ -78,7 +77,7 @@ const PizzaItems: React.FC = () => {
         pickBy({
           categoryId,
           currentPage,
-          sortProperty: sort.sortProperty,
+          sortBy: sort.sortBy,
           order: sort.order,
         })
       );
@@ -94,7 +93,7 @@ const PizzaItems: React.FC = () => {
     []
   );
   const pizzas = useMemo(
-    () => items.map((item: any) => <PizzaBlock key={item.id} {...item} />),
+    () => items.map((item) => <PizzaBlock key={item.id} {...item} />),
     [items]
   );
 
