@@ -1,43 +1,12 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { pizzasApi } from '../../api';
-import { RootState } from '../store';
-
-export type Pizza = {
-  id: string;
-  category: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-  rating: number;
-};
-
-export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
-
-interface PizzaSliceState {
-  items: Pizza[];
-  countItems: number;
-  status: Status;
-}
-
-export type FetchPizzasArgs = {
-  categoryId?: number;
-  sortBy?: string;
-  order?: string;
-  searchValue?: string;
-  limit?: number;
-  currentPage?: number;
-};
-
-export type FetchPizzasAnswer = {
-  count: number;
-  pizzas: Pizza[];
-};
+import {
+  FetchPizzasAnswer,
+  FetchPizzasArgs,
+  Pizza,
+  PizzaSliceState,
+  Status,
+} from './types';
 
 const initialState: PizzaSliceState = {
   items: [],
@@ -92,8 +61,6 @@ const pizzaSlice = createSlice({
     });
   },
 });
-
-export const selectPizzaData = (state: RootState) => state.pizza;
 
 export const { setItems } = pizzaSlice.actions;
 

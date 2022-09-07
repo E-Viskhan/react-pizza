@@ -1,14 +1,9 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectSort,
-  setSort,
-  sortBy,
-  SortItem,
-  sortName,
-  sortOrder,
-} from '../redux/slices/filterSlice';
+import { setSort } from '../redux/filter/slice';
+import { sortBy, SortItem, sortName, sortOrder } from '../redux/filter/types';
+import { selectSort } from '../redux/filter/selectors';
 
 export const sortTypes: SortItem[] = [
   { name: sortName.RATING, sortBy: sortBy.RATING, order: sortOrder.DESC },

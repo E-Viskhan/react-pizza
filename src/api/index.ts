@@ -4,7 +4,7 @@ import {
   FetchPizzasAnswer,
   FetchPizzasArgs,
   Pizza,
-} from '../redux/slices/pizzaSlice';
+} from '../redux/pizza/types';
 
 const api = axios.create({
   baseURL: 'https://62c70b8074e1381c0a70239f.mockapi.io/',

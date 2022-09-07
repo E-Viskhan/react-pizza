@@ -5,7 +5,7 @@ import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
 import PizzaItems from '../components/PizzaItems';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
 import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
