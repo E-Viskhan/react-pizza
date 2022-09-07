@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -26,7 +26,7 @@ export const sortTypes: SortItem[] = [
   },
 ];
 
-const Sort: React.FC = () => {
+const Sort: React.FC = memo(() => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -89,6 +89,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

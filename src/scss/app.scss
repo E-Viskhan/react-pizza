@@ -220,14 +220,7 @@ body {
         }
 
         &:disabled {
-          &:active, &:hover {
-            background-color: transparent;
-            transform: none;
-
-            svg path {
-              fill: #fe5f1e;
-            }
-          }
+          pointer-events: none;
 
           cursor: not-allowed;
           opacity: 0.6;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 type CategoriesProps = {
   currentCatId: number;
@@ -14,23 +14,22 @@ const categories = [
   'Закрытые',
 ];
 
-const Categories: React.FC<CategoriesProps> = ({
-  currentCatId,
-  onChangeCategory,
-}) => {
-  return (
-    <ul className="categories">
-      {categories.map((category, i) => (
-        <li
-          className={i === currentCatId ? 'active' : ''}
-          onClick={() => onChangeCategory(i)}
-          key={i}
-        >
-          {category}
-        </li>
-      ))}
-    </ul>
-  );
-};
+const Categories: React.FC<CategoriesProps> = memo(
+  ({ currentCatId, onChangeCategory }) => {
+    return (
+      <ul className="categories">
+        {categories.map((category, i) => (
+          <li
+            className={i === currentCatId ? 'active' : ''}
+            onClick={() => onChangeCategory(i)}
+            key={i}
+          >
+            {category}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+);
 
 export default Categories;
