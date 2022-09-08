@@ -8,7 +8,7 @@ import { selectCartItemById } from '../../redux/cart/selectors';
 
 const typeNames = ['тонкое', 'традиционное'];
 
-const PizzaBlock: React.FC<Pizza> = ({
+export const PizzaBlock: React.FC<Pizza> = ({
   id,
   title,
   price,
@@ -95,5 +95,3 @@ const PizzaBlock: React.FC<Pizza> = ({
     </div>
   );
 };
-
-export default PizzaBlock;

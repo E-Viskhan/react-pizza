@@ -1,12 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
-
-import Categories from '../components/Categories';
-import Sort from '../components/Sort';
-import Pagination from '../components/Pagination';
-import PizzaItems from '../components/PizzaItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
 import { RootState } from '../redux/store';
+import { Categories, Pagination, PizzaItems, Sort } from '../components';
 
 const Home: React.FC = () => {
   const categoryId = useSelector((state: RootState) => state.filter.categoryId);

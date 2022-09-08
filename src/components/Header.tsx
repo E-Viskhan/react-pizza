@@ -1,14 +1,14 @@
 import logoSvg from '../assets/img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
-import Search from './Search';
 import { useSelector } from 'react-redux';
 import { setCart } from '../redux/cart/slice';
 import { CartSliceState } from '../redux/cart/types';
 import { selectCart } from '../redux/cart/selectors';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch } from '../redux/store';
+import { Search } from './';
 
-const Header = () => {
+export const Header = () => {
   const { items, totalPrice } = useSelector(selectCart);
 
   const isFirstRender = useRef(true);
@@ -92,5 +92,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

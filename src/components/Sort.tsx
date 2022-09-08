@@ -21,7 +21,7 @@ export const sortTypes: SortItem[] = [
   },
 ];
 
-const Sort: React.FC = memo(() => {
+export const Sort: React.FC = memo(() => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -85,5 +85,3 @@ const Sort: React.FC = memo(() => {
     </div>
   );
 });
-
-export default Sort;

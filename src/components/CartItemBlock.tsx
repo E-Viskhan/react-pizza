@@ -13,7 +13,7 @@ type CartItemBlockProps = {
   count: number;
 };
 
-const CartItemBlock: React.FC<CartItemBlockProps> = ({
+export const CartItemBlock: React.FC<CartItemBlockProps> = ({
   id,
   title,
   price,
@@ -121,5 +121,3 @@ const CartItemBlock: React.FC<CartItemBlockProps> = ({
     </div>
   );
 };
-
-export default CartItemBlock;

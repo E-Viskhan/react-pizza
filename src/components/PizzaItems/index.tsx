@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Skeleton from '../PizzaBlock/Skeleton';
-import PizzaBlock from '../PizzaBlock';
 import { initialSort, setFilters } from '../../redux/filter/slice';
 import qs from 'qs';
 import { pickBy } from 'lodash';
@@ -11,8 +9,9 @@ import { fetchPizzas } from '../../redux/pizza/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectPizzaData } from '../../redux/pizza/selectors';
 import { selectFilter, selectSort } from '../../redux/filter/selectors';
+import { Skeleton, PizzaBlock } from '../';
 
-const PizzaItems: React.FC = () => {
+export const PizzaItems: React.FC = () => {
   const isSearchReady = useRef(false);
   const isMounted = useRef(false);
 
@@ -108,5 +107,3 @@ const PizzaItems: React.FC = () => {
 
   return <>{status === 'loading' ? skeletons : pizzas}</>;
 };
-
-export default PizzaItems;

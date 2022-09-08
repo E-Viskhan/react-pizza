@@ -6,7 +6,7 @@ import { setSearchValue } from '../../redux/filter/slice';
 import React, { useCallback, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
   const inputEl = useRef<HTMLInputElement>(null);
@@ -54,5 +54,3 @@ const Search: React.FC = () => {
     </div>
   );
 };
-
-export default Search;
