@@ -9,7 +9,7 @@ import { fetchPizzas } from '../../redux/pizza/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectPizzaData } from '../../redux/pizza/selectors';
 import { selectFilter, selectSort } from '../../redux/filter/selectors';
-import { Skeleton, PizzaBlock } from '../';
+import { PizzaBlock, Skeleton } from '../';
 
 export const PizzaItems: React.FC = () => {
   const isSearchReady = useRef(false);
