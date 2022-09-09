@@ -13,7 +13,7 @@ export const initialSort = {
   order: sortOrder.DESC,
 };
 
-const initialState: FilterSliceState = {
+export const initialState: FilterSliceState = {
   categoryId: 0,
   searchValue: '',
   currentPage: 1,

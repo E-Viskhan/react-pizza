@@ -69,8 +69,11 @@ export const CartItemBlock: React.FC<CartItemBlockProps> = ({
       <div className="cart__item-price">
         <b>{price * count} ₽</b>
       </div>
-      <div onClick={onClickRemove} className="cart__item-remove">
-        <div className="button button--outline button--circle">
+      <div className="cart__item-remove">
+        <div
+          onClick={onClickRemove}
+          className="button button--outline button--circle"
+        >
           <IconCancel />
         </div>
       </div>

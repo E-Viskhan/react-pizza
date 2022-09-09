@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 import { useAppDispatch } from '../redux/store';
 import { Search } from './';
 import { IconCart } from './icons';
+import { initialState, setFilters } from '../redux/filter/slice';
 
 export const Header = () => {
   const { items, totalPrice } = useSelector(selectCart);
@@ -19,6 +20,10 @@ export const Header = () => {
   const dispatch = useAppDispatch();
 
   const totalCount = items.reduce((sum: number, item) => sum + item.count, 0);
+
+  const clearFilters = () => {
+    dispatch(setFilters(initialState));
+  };
 
   useEffect(() => {
     if (!isFirstRender.current) {
@@ -42,7 +47,7 @@ export const Header = () => {
     <div className="header">
       <div className="container">
         <div className="header__wrapper">
-          <Link to="/" className="header__link">
+          <Link onClick={clearFilters} to="/" className="header__link">
             <div className="header__logo">
               <img width="38" src={logoSvg} alt="Pizza logo" />
               <div>
