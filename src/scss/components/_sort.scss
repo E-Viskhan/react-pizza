@@ -18,6 +18,7 @@
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+      user-select: none;
     }
   }
 
