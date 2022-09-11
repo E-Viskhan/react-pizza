@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/cart/slice';
 import { CartItem } from '../../redux/cart/types';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Pizza } from '../../redux/pizza/types';
 import { selectCartItemById } from '../../redux/cart/selectors';
 import { IconAdd } from '../icons';
+import { createPizzaIndex } from '../../utils';
 
 const typeNames = ['тонкое', 'традиционное'];
 
@@ -19,27 +20,35 @@ export const PizzaBlock: React.FC<Pizza> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const cartItem = useSelector(selectCartItemById(id));
-  const addedCount = cartItem?.count || 0;
-
   const [firstType] = types;
 
   const [activeType, setActiveType] = useState(firstType);
   const [activeSize, setActiveSize] = useState(0);
+  const [currentPizzaId, setCurrentPizzaId] = useState('');
+
+  const cartItem = useSelector(selectCartItemById(currentPizzaId));
+  const addedCount = cartItem?.count || 0;
 
   const onClickAdd = () => {
+    const type = typeNames[activeType];
+    const size = sizes[activeSize];
+
     const item: CartItem = {
-      id,
+      id: currentPizzaId,
       title,
       price,
       imageUrl,
-      type: typeNames[activeType],
-      size: sizes[activeSize],
+      type,
+      size,
       count: 1,
     };
 
     dispatch(addItem(item));
   };
+
+  useEffect(() => {
+    setCurrentPizzaId(createPizzaIndex(title, activeType, sizes[activeSize]));
+  }, [activeSize, activeType]);
 
   return (
     <div className="pizza-block">

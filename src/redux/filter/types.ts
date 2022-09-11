@@ -3,7 +3,7 @@ export enum sortName {
   EXPENSIVE_FIRST = 'сначала дорогие',
   CHEAP_FIRST = 'сначала доступные',
   ALPHABET = 'от А до Я',
-  REVERSE_ALPHABET = 'от А до Я',
+  REVERSE_ALPHABET = 'от Я до А',
 }
 
 export enum sortBy {
