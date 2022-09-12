@@ -1,10 +1,6 @@
 import React from 'react';
 import { NotFoundBlock } from '../components';
 
-const NotFound: React.FC = () => {
-  console.log('this code is bad code');
-
-  return <NotFoundBlock />;
-};
+const NotFound: React.FC = () => <NotFoundBlock />;
 
 export default NotFound;

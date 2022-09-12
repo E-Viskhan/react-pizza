@@ -2,14 +2,15 @@ import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initialSort, setFilters } from '../../redux/filter/slice';
-import qs from 'qs';
-import { pickBy } from 'lodash';
+import { isEmpty, pickBy } from 'lodash';
 import { sortTypes } from '../Sort';
 import { fetchPizzas } from '../../redux/pizza/slice';
 import { useAppDispatch } from '../../redux/store';
 import { selectPizzaData } from '../../redux/pizza/selectors';
 import { selectFilter, selectSort } from '../../redux/filter/selectors';
 import { PizzaBlock, Skeleton } from '../';
+import { useQueryParams } from '../../hooks';
+import { stringify } from '../../utils';
 
 export const PizzaItems: React.FC = () => {
   const isSearchReady = useRef(false);
@@ -21,6 +22,8 @@ export const PizzaItems: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const params = useQueryParams();
 
   const getPizzas = async () => {
     const sortBy = sort.sortBy;
@@ -48,10 +51,7 @@ export const PizzaItems: React.FC = () => {
   }, [categoryId, sort, currentPage, searchValue]);
 
   useEffect(() => {
-    const search = window.location.search;
-
-    if (search) {
-      const params = qs.parse(search, { ignoreQueryPrefix: true });
+    if (!isEmpty(params)) {
       const sort = sortTypes.find(
         (sort) => sort.sortBy === params?.sortBy && sort.order === params?.order
       );
@@ -69,14 +69,14 @@ export const PizzaItems: React.FC = () => {
 
   useEffect(() => {
     if (isMounted.current) {
-      const queryString = qs.stringify(
-        pickBy({
-          categoryId,
-          currentPage,
-          sortBy: sort.sortBy,
-          order: sort.order,
-        })
-      );
+      const params = pickBy({
+        categoryId,
+        currentPage,
+        sortBy: sort.sortBy,
+        order: sort.order,
+      });
+
+      const queryString = stringify(params);
 
       navigate(`?${queryString}`);
     } else {
