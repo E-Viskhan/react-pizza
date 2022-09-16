@@ -135,6 +135,10 @@
     line-height: 23px;
     padding: 12px 25px;
 
+    @media (max-width: 1180px) {
+      padding: 10px 20px;
+    }
+
     svg {
       margin-right: 8px;
       margin-bottom: 1px;

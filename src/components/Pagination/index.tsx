@@ -15,6 +15,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   count,
 }) => (
   <ReactPagination
+    showTitle={false}
     className={styles.pagination}
     onChange={onChangePage}
     current={currentPage}

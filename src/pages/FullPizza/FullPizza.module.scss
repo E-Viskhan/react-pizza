@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+  margin: 0 auto;
+
+  @media (max-width: 1040px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  width: 40vw;
+  max-width: 400px;
+  margin-right: 40px;
+
+  @media (max-width: 1040px) {
+    max-width: none;
+    width: 45vw;
+    margin: 0 0 40px 0;
+  }
+
+  @media (max-width: 700px) {
+    width: 60vw;
+  }
+
+  @media (max-width: 576px) {
+    width: 70vw;
+  }
+}
+
+.title, .price {
+  font-size: 30px;
+
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+}
+
+.desc {
+  font-size: 20px;
+
+  @media (max-width: 576px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 17px;
+  }
+}
+
+.title, .desc {
+  margin-bottom: 20px;
+}

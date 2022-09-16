@@ -3,6 +3,12 @@
 .pizza-block {
   text-align: center;
 
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__image {
     max-width: 100%;
     width: 260px;
@@ -13,6 +19,7 @@
     font-weight: 900;
     letter-spacing: 1%;
     margin-bottom: 20px;
+    min-height: 29px;
 
     @media (max-width: 1500px) {
       font-size: 19px;

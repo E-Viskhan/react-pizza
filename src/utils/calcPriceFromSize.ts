@@ -13,5 +13,5 @@ export const calcPriceFromSize = (price: number, size: number) => {
       break;
   }
 
-  return result;
+  return Math.round(result);
 };

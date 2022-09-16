@@ -24,7 +24,7 @@ export const fetchPizzas = createAsyncThunk<FetchPizzasAnswer, FetchPizzasArgs>(
       categoryId,
       sortBy,
       order,
-      searchValue,
+      searchValue: searchValue?.trim(),
       limit,
       currentPage,
     });
@@ -44,7 +44,7 @@ const pizzaSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPizzas.pending, (state) => {
       state.status = Status.LOADING;
-      state.countItems = 0;
+      // state.countItems = 0;
       state.items = [];
     });
 

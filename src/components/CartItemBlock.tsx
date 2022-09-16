@@ -47,34 +47,36 @@ export const CartItemBlock: React.FC<CartItemBlockProps> = ({
       <div className="cart__item-info">
         <h3>{title}</h3>
         <p>
-          {type} тесто, {size} см.
+          {type}&nbsp;тесто, {size}&nbsp;см.
         </p>
       </div>
-      <div className="cart__item-count">
-        <button
-          disabled={count === 1}
-          onClick={onClickMinus}
-          className="button button--outline button--circle cart__item-count-minus"
-        >
-          <IconMinus />
-        </button>
-        <b>{count}</b>
-        <button
-          onClick={onClickPlus}
-          className="button button--outline button--circle cart__item-count-plus"
-        >
-          <IconPlus />
-        </button>
-      </div>
-      <div className="cart__item-price">
-        <b>{price * count} ₽</b>
-      </div>
-      <div className="cart__item-remove">
-        <div
-          onClick={onClickRemove}
-          className="button button--outline button--circle"
-        >
-          <IconCancel />
+      <div className="cart__item-wrapper">
+        <div className="cart__item-count">
+          <button
+            disabled={count === 1}
+            onClick={onClickMinus}
+            className="button button--outline button--circle cart__item-count-minus"
+          >
+            <IconMinus />
+          </button>
+          <b>{count}</b>
+          <button
+            onClick={onClickPlus}
+            className="button button--outline button--circle cart__item-count-plus"
+          >
+            <IconPlus />
+          </button>
+        </div>
+        <div className="cart__item-price">
+          <b>{price * count}&nbsp;₽</b>
+        </div>
+        <div className="cart__item-remove">
+          <div
+            onClick={onClickRemove}
+            className="button button--outline button--circle cart__item-remove-btn"
+          >
+            <IconCancel />
+          </div>
         </div>
       </div>
     </div>

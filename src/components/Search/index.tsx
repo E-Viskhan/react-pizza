@@ -5,11 +5,14 @@ import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/filter/slice';
 import React, { useCallback, useRef, useState } from 'react';
 import { debounce } from 'lodash';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Search: React.FC = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
   const inputEl = useRef<HTMLInputElement>(null);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const onClickClear = () => {
     dispatch(setSearchValue(''));
@@ -24,6 +27,10 @@ export const Search: React.FC = () => {
 
   const updateSearchValue = useCallback(
     debounce((str: string) => {
+      if (pathname !== '/') {
+        navigate('/');
+      }
+
       dispatch(setSearchValue(str));
     }, 500),
     []

@@ -48,7 +48,7 @@ export const PizzaBlock: React.FC<Pizza> = ({
 
   useEffect(() => {
     setCurrentPizzaId(createPizzaIndex(title, activeType, sizes[activeSize]));
-  }, [activeSize, activeType]);
+  }, [activeSize, activeType, title, sizes]);
 
   return (
     <div className="pizza-block">
@@ -81,7 +81,7 @@ export const PizzaBlock: React.FC<Pizza> = ({
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} ₽</div>
+        <div className="pizza-block__price">{price} ₽</div>
         <button
           onClick={onClickAdd}
           className="button button--outline button--add"

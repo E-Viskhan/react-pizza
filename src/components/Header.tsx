@@ -15,8 +15,6 @@ export const Header = () => {
 
   const isFirstRender = useRef(true);
 
-  const location = useLocation();
-
   const dispatch = useAppDispatch();
 
   const totalCount = items.reduce((sum: number, item) => sum + item.count, 0);
@@ -56,7 +54,7 @@ export const Header = () => {
               </div>
             </div>
           </Link>
-          {location.pathname !== '/cart' && <Search />}
+          <Search />
         </div>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">

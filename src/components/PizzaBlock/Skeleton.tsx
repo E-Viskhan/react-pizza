@@ -10,8 +10,8 @@ export const Skeleton: React.FC<SkeletonProps> = (props) => (
     className="pizza-block"
     speed={2}
     width={280}
-    height={468}
-    viewBox="0 0 280 468"
+    height={463}
+    viewBox="0 0 280 463"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
     {...props}

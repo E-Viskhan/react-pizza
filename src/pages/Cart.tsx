@@ -133,10 +133,14 @@ const Cart: React.FC = () => {
                 />
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>
+                <span className="only-for-pc">Вернуться </span>назад
+              </span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>
+                Оплатить <span className="only-for-pc"> сейчас</span>
+              </span>
             </div>
           </div>
         </div>
