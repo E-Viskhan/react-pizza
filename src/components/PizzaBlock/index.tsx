@@ -6,24 +6,26 @@ import { Link } from 'react-router-dom';
 import { Pizza } from '../../redux/pizza/types';
 import { selectCartItemById } from '../../redux/cart/selectors';
 import { IconAdd } from '../icons';
-import { createPizzaIndex } from '../../utils';
+import { calcPriceFromSize, createPizzaIndex } from '../../utils';
 
 const typeNames = ['тонкое', 'традиционное'];
 
 export const PizzaBlock: React.FC<Pizza> = ({
   id,
   title,
-  price,
+  price: basePrice,
   imageUrl,
   sizes,
   types,
 }) => {
   const dispatch = useDispatch();
 
-  const [firstType] = types;
+  const [initialType] = types;
+  const [initialSize] = sizes;
 
-  const [activeType, setActiveType] = useState(firstType);
-  const [activeSize, setActiveSize] = useState(0);
+  const [activeType, setActiveType] = useState(initialType);
+  const [activeSize, setActiveSize] = useState(initialSize);
+  const [price, setPrice] = useState(basePrice);
   const [currentPizzaId, setCurrentPizzaId] = useState('');
 
   const cartItem = useSelector(selectCartItemById(currentPizzaId));
@@ -31,7 +33,6 @@ export const PizzaBlock: React.FC<Pizza> = ({
 
   const onClickAdd = () => {
     const type = typeNames[activeType];
-    const size = sizes[activeSize];
 
     const item: CartItem = {
       id: currentPizzaId,
@@ -39,7 +40,7 @@ export const PizzaBlock: React.FC<Pizza> = ({
       price,
       imageUrl,
       type,
-      size,
+      size: activeSize,
       count: 1,
     };
 
@@ -47,8 +48,12 @@ export const PizzaBlock: React.FC<Pizza> = ({
   };
 
   useEffect(() => {
-    setCurrentPizzaId(createPizzaIndex(title, activeType, sizes[activeSize]));
+    setCurrentPizzaId(createPizzaIndex(title, activeType, activeSize));
   }, [activeSize, activeType, title, sizes]);
+
+  useEffect(() => {
+    setPrice(calcPriceFromSize(basePrice, activeSize));
+  }, [activeSize, basePrice]);
 
   return (
     <div className="pizza-block">
@@ -69,11 +74,11 @@ export const PizzaBlock: React.FC<Pizza> = ({
           ))}
         </ul>
         <ul>
-          {sizes.map((size, i) => (
+          {sizes.map((size) => (
             <li
               key={size}
-              className={activeSize === i ? 'active' : ''}
-              onClick={() => setActiveSize(i)}
+              className={activeSize === size ? 'active' : ''}
+              onClick={() => setActiveSize(size)}
             >
               {size} см.
             </li>
