@@ -2,20 +2,28 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearItems } from '../redux/cart/slice';
 import { selectCart } from '../redux/cart/selectors';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { CartEmpty, CartItemBlock } from '../components';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectCart);
 
-  const totalCount = items.reduce((sum: number, item) => sum + item.count, 0);
+  const totalCount = useMemo(
+    () => items.reduce((sum: number, item) => sum + item.count, 0),
+    [items]
+  );
 
-  const onClickClear = () => {
+  const onClickClear = useCallback(() => {
     if (window.confirm('Очистить корзину?')) {
       dispatch(clearItems());
     }
-  };
+  }, [dispatch]);
+
+  const CartItemBlocks = useMemo(
+    () => items.map((item) => <CartItemBlock key={item.id} {...item} />),
+    [items]
+  );
 
   if (items.length === 0) {
     return <CartEmpty />;
@@ -98,11 +106,7 @@ const Cart: React.FC = () => {
             <span>Очистить корзину</span>
           </div>
         </div>
-        <div className="content__items">
-          {items.map((item) => (
-            <CartItemBlock key={item.id} {...item} />
-          ))}
-        </div>
+        <div className="content__items">{CartItemBlocks}</div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>

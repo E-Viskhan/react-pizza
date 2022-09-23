@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initialSort, setFilters } from '../../redux/filter/slice';
 import { isEmpty, pickBy } from 'lodash';
@@ -25,7 +25,7 @@ export const PizzaItems: React.FC = () => {
 
   const params = useQueryParams();
 
-  const getPizzas = async () => {
+  const getPizzas = useCallback(async () => {
     const sortBy = sort.sortBy;
     const order = sort.order;
     const limit = 4;
@@ -40,7 +40,7 @@ export const PizzaItems: React.FC = () => {
         currentPage,
       })
     );
-  };
+  }, [dispatch, categoryId, sort, searchValue, currentPage]);
 
   useEffect(() => {
     const search = window.location.search;
@@ -48,7 +48,7 @@ export const PizzaItems: React.FC = () => {
     if (!search || (search && isSearchReady.current)) {
       void getPizzas();
     }
-  }, [categoryId, sort, currentPage, searchValue]);
+  }, [getPizzas, categoryId, sort, currentPage, searchValue]);
 
   useEffect(() => {
     if (!isEmpty(params)) {
@@ -65,7 +65,7 @@ export const PizzaItems: React.FC = () => {
       dispatch(setFilters(filters));
       isSearchReady.current = true;
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -82,7 +82,7 @@ export const PizzaItems: React.FC = () => {
     } else {
       isMounted.current = true;
     }
-  }, [categoryId, sort, currentPage]);
+  }, [navigate, categoryId, sort, currentPage]);
 
   const skeletons = useMemo(
     () => [...Array(4)].map((_, i) => <Skeleton key={i} />),

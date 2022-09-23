@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/cart/slice';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { CartItem } from '../redux/cart/types';
 import { IconCancel, IconMinus, IconPlus } from './icons';
 
@@ -25,19 +25,19 @@ export const CartItemBlock: React.FC<CartItemBlockProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const onClickPlus = () => {
+  const onClickPlus = useCallback(() => {
     dispatch(addItem({ id } as CartItem));
-  };
+  }, [dispatch, id]);
 
-  const onClickMinus = () => {
+  const onClickMinus = useCallback(() => {
     dispatch(minusItem(id));
-  };
+  }, [dispatch, id]);
 
-  const onClickRemove = () => {
+  const onClickRemove = useCallback(() => {
     if (window.confirm('Ты точно хочешь удалить товар из корзины?')) {
       dispatch(removeItem(id));
     }
-  };
+  }, [dispatch, id]);
 
   return (
     <div key={id} className="cart__item">

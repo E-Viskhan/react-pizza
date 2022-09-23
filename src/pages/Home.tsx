@@ -13,11 +13,17 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const onChangeCategory = useCallback((idx: number) => {
-    dispatch(setCategoryId(idx));
-  }, []);
+  const onChangeCategory = useCallback(
+    (idx: number) => {
+      dispatch(setCategoryId(idx));
+    },
+    [dispatch]
+  );
 
-  const onChangePage = (page: number) => dispatch(setCurrentPage(page));
+  const onChangePage = useCallback(
+    (page: number) => dispatch(setCurrentPage(page)),
+    [dispatch]
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
